@@ -1,61 +1,25 @@
-import React, { useState } from 'react';
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { FormDataProvider } from './FormDataContext';
 import PersonalInfoForm from './components/PersonalInfoForm';
 import AddressInfoForm from './components/AddressInfoForm';
 import ConfirmationPage from './components/ConfirmationPage';
+import FormSubmittedPage from './components/FormSubmittedPage';
 
-const App = () => {
-  const [formData, setFormData] = useState({});
-  const [currentStep, setCurrentStep] = useState(1);
-
-  const handleChange = (newFormData) => {
-    setFormData({ ...formData, ...newFormData });
-  };
-
-  const nextStep = () => {
-    setCurrentStep(currentStep + 1);
-  };
-
-  const prevStep = () => {
-    setCurrentStep(currentStep - 1);
-  };
-
-  const renderStep = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <PersonalInfoForm
-            formData={formData}
-            handleChange={handleChange}
-            nextStep={nextStep}
-          />
-        );
-      case 2:
-        return (
-          <AddressInfoForm
-            formData={formData}
-            handleChange={handleChange}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
-        );
-      case 3:
-        return (
-          <ConfirmationPage
-            formData={formData}
-            prevStep={prevStep}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
+function App() {
   return (
-    <div>
-      <h1>Multi-step Form</h1>
-      {renderStep()}
-    </div>
+    <FormDataProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<PersonalInfoForm />} />
+          <Route path="/address-info" element={<AddressInfoForm />} />
+          <Route path="/confirmation" element={<ConfirmationPage />} />
+          <Route path="/form-submitted" element={<FormSubmittedPage />} />
+        </Routes>
+      </Router>
+    </FormDataProvider>
   );
-};
+}
 
 export default App;

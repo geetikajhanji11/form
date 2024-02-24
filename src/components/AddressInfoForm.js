@@ -1,97 +1,112 @@
-// components/AddressInfoForm.js
+// AddressInfoForm.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useFormData } from '../FormDataContext';
 
-const AddressInfoForm = ({ formData, handleChange, nextStep, prevStep }) => {
-  const [countries, setCountries] = useState([]);
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
+const AddressInfoForm = () => {
+  const navigate = useNavigate();
+  const { formData, updateFormData } = useFormData();
+  const [localFormData, setLocalFormData] = useState({
+    addressLine1: formData.addressLine1 || '',
+    addressLine2: formData.addressLine2 || '',
+    city: formData.city || '',
+    state: formData.state || '',
+    zipCode: formData.zipCode || '',
+  });
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    // Fetch countries from API
-    axios.get('https://api.countrystatecity.in/v1/countries', {
-      headers: {
-        'X-CSCAPI-KEY': 'your-api-key' // Replace 'your-api-key' with your actual API key
-      }
-    })
-    .then(response => {
-      setCountries(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching countries:', error);
+    // Update local form data when form data context changes
+    setLocalFormData({
+      addressLine1: formData.addressLine1 || '',
+      addressLine2: formData.addressLine2 || '',
+      city: formData.city || '',
+      state: formData.state || '',
+      zipCode: formData.zipCode || '',
     });
-  }, []);
+  }, [formData]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLocalFormData({ ...localFormData, [name]: value });
+  };
+
+  const validate = () => {
+    const validationErrors = {};
+    if (!localFormData.addressLine1) {
+      validationErrors.addressLine1 = 'Address Line 1 is required';
+    }
+    if (!localFormData.city) {
+      validationErrors.city = 'City is required';
+    }
+    if (!localFormData.state) {
+      validationErrors.state = 'State is required';
+    }
+    if (!localFormData.zipCode) {
+      validationErrors.zipCode = 'Zip Code is required';
+    } else if (!/^\d{6}$/.test(localFormData.zipCode)) {
+      validationErrors.zipCode = 'Zip Code is invalid';
+    }
+    return validationErrors;
+  };
 
   const handleNext = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
-      nextStep();
+      updateFormData(localFormData);
+      navigate('/confirmation');
     } else {
-      nextStep();
-      console.log("error")
       setErrors(validationErrors);
     }
   };
 
-  const handlePrev = () => {
-    console.log("handl;e next")
-  }
- 
-  const validate = () => {
-    const errors = {};
-    if (!formData.addressLine1) {
-      errors.addressLine1 = 'Address Line 1 is required';
-    }
-    if (!formData.country) {
-      errors.country = 'Country is required';
-    }
-    if (!formData.state) {
-      errors.state = 'State is required';
-    }
-    if (!formData.city) {
-      errors.city = 'City is required';
-    }
-    // Add validation for Pincode if needed
-    return errors;
+  const handleBack = () => {
+    navigate('/');
   };
-
-  const handleCountryChange = (countryCode) => {
-    // Fetch states for selected country
-    axios.get(`https://api.countrystatecity.in/v1/countries/${countryCode}/states`, {
-      headers: {
-        'X-CSCAPI-KEY': 'your-api-key' // Replace 'your-api-key' with your actual API key
-      }
-    })
-    .then(response => {
-      setStates(response.data);
-    })
-    .catch(error => {
-      console.error('Error fetching states:', error);
-    });
-  };
-
-  // Function to fetch cities based on selected state
 
   return (
     <div>
       <h2>Step 2: Address Information</h2>
       <input
         type="text"
+        name="addressLine1"
         placeholder="Address Line 1"
-        value={formData.addressLine1 || ''}
-        onChange={(e) => handleChange({ addressLine1: e.target.value })}
+        value={localFormData.addressLine1}
+        onChange={handleChange}
       />
       {errors.addressLine1 && <p>{errors.addressLine1}</p>}
       <input
         type="text"
-        placeholder="Address Line 2 (optional)"
-        value={formData.addressLine2 || ''}
-        onChange={(e) => handleChange({ addressLine2: e.target.value })}
+        name="addressLine2"
+        placeholder="Address Line 2"
+        value={localFormData.addressLine2}
+        onChange={handleChange}
       />
-      {/* Add other address fields like Country, State, City, Pincode */}
-      {/* Add error messages for address fields */}
-      <button onClick={handlePrev}>Back</button>
+      <input
+        type="text"
+        name="city"
+        placeholder="City"
+        value={localFormData.city}
+        onChange={handleChange}
+      />
+      {errors.city && <p>{errors.city}</p>}
+      <input
+        type="text"
+        name="state"
+        placeholder="State"
+        value={localFormData.state}
+        onChange={handleChange}
+      />
+      {errors.state && <p>{errors.state}</p>}
+      <input
+        type="text"
+        name="zipCode"
+        placeholder="Zip Code"
+        value={localFormData.zipCode}
+        onChange={handleChange}
+      />
+      {errors.zipCode && <p>{errors.zipCode}</p>}
+      <button onClick={handleBack}>Back</button>
       <button onClick={handleNext}>Next</button>
     </div>
   );

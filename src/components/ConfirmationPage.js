@@ -1,37 +1,44 @@
-// components/ConfirmationPage.js
+// ConfirmationPage.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useFormData } from '../FormDataContext';
 
-const ConfirmationPage = ({ formData, prevStep }) => {
+const ConfirmationPage = () => {
+  const { formData } = useFormData();
+  const navigate = useNavigate();
+
   const handleSubmit = () => {
-    // Submit the form data
-    console.log(formData);
+    // Here you might want to actually submit the form data to a backend
+    console.log('Submitting form data:', formData);
+
+    // Navigate to the form submitted page upon successful submission
+    navigate('/form-submitted');
   };
 
-  const handlePrev = () => {
-    prevStep();
-  };
+  const handleBack = () => {
+    navigate("/address-info");
+  }
 
   return (
     <div>
-      <h2>Step 3: Confirmation</h2>
+      <h2>Confirm Your Information</h2>
       <div>
-        <h3>Personal Information</h3>
-        <p>First Name: {formData.firstName}</p>
-        <p>Last Name: {formData.lastName}</p>
+        <strong>Personal Info:</strong>
+        <p>Name: {formData.firstName} {formData.lastName}</p>
         <p>Email: {formData.email}</p>
-        <p>Date of Birth: {formData.dateOfBirth}</p>
+        <p>DOB: {formData.dateOfBirth}</p>
+
       </div>
       <div>
-        <h3>Address Information</h3>
+        <strong>Address:</strong>
         <p>Address Line 1: {formData.addressLine1}</p>
-        <p>Address Line 2: {formData.addressLine2 || 'N/A'}</p>
-        <p>Country: {formData.country}</p>
-        <p>State: {formData.state}</p>
+        <p>Address Line 2: {formData.addressLine2}</p>
         <p>City: {formData.city}</p>
-        {/* Display other address information fields */}
+        <p>State: {formData.state}</p>
+        <p>Zip Code: {formData.zipCode}</p>
       </div>
-      <button onClick={handlePrev}>Back</button>
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleBack}>Back</button>
+      <button onClick={handleSubmit}>Confirm and Submit</button>
     </div>
   );
 };
