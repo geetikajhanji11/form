@@ -75,7 +75,7 @@ const PersonalInfoForm = () => {
           <input
             type="text"
             name="firstName"
-            placeholder="First Name"
+            placeholder="Enter your first name"
             value={localFormData.firstName}
             onChange={handleChange}
           />
@@ -87,7 +87,7 @@ const PersonalInfoForm = () => {
           <input
             type="text"
             name="lastName"
-            placeholder="Last Name"
+            placeholder="Enter your last name"
             value={localFormData.lastName}
             onChange={handleChange}
           />
@@ -99,7 +99,7 @@ const PersonalInfoForm = () => {
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Enter your email id"
             value={localFormData.email}
             onChange={handleChange}
           />
@@ -111,7 +111,7 @@ const PersonalInfoForm = () => {
           <input
             type="date"
             name="dateOfBirth"
-            placeholder="Date of Birth"
+            placeholder="DD/MM/YYYY"
             value={localFormData.dateOfBirth}
             onChange={handleChange}
           />
