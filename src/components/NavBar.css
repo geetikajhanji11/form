@@ -7,56 +7,83 @@
     
 }
 .icon {
-  color: grey; /* Default icon color */
+  color: #EAECF0;
+  font-size: 30px; /* Base font size for the icons */
   transition: color 0.3s, transform 0.3s;
-}
-
-.icon.active {
-  color: purple; /* Active icon color */
   transform: scale(1.1); /* Slightly larger icon when active */
 }
 
-.navbar {
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* align-items: flex-start; */
-    padding: 20px;
-  }
+.icon-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon.active {
+  background-color: #F4EBFF;
+  color: #6941C6;
+  font-size: 28px; /* Increase font size for active icons */
+  transform: scale(1.1); /* Slightly larger icon when active */
+}
+
+.main-navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  padding: 20px;
+  width: 100%; /* Set width to ensure it takes full width of its container */
+}
   
   .title {
     font-size: 24px;
     margin-bottom: 10px;
   }
-  
-  .progress-bar {
+
+  .form-progress-bar-wrapper {
     width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+  
+  .form-progress-bar {
+    width: 100%; /* Ensure it spans the full width */
     display: flex;
+    justify-content: center; /* Center the children horizontally */
     align-items: center;
   }
   
   .line {
-    width: 200px;
-    height: 2px;
-    background-color: grey;
+    color: #EAECF0;
+    flex-grow: 1; /* Allows the line to grow and fill available space */
+    height: 2.5px;
+    background-color: #EAECF0;
     transition: background-color 0.3s;
+  }
+  @media (max-width: 768px) {
+    .line {
+      flex-grow: 1; 
+    }
+    .icon {
+      transform: scale(0.8); 
+    }
   }
   
   .circle {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    background-color: grey;
-    color: white;
-    margin: 0 5px;
-    transition: background-color 0.3s, transform 0.3s;
+    justify-content: center; /* This centers the items vertically within the container, if needed */
+  }
+
+  .icon-text {
+    font-size: 12px;
+    margin-top: 5px; /* Adjust the spacing between the icon and the text */
   }
   
   .line-active {
-    background-color: purple;
-    color: purple;
+    background-color: #6941C6;
+    color: #6941C6;
   }
   
   .circle.active {

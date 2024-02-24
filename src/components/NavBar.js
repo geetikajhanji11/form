@@ -23,7 +23,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navbar">
+    <div className="main-navbar">
         
         <div className='upper-content'>
             <div className="left-content">
@@ -34,13 +34,16 @@ const NavBar = () => {
             </div>
         </div>
         
-      <div className="progress-bar">
-        <span className={`line ${isFirstStep || isSecondStep || isThirdStep || isLastStep ? 'line-active' : ''}`}></span>
-        {renderIcon(true, isSecondStep || isThirdStep || isLastStep)}
-        <span className={`line ${isSecondStep || isThirdStep || isLastStep ? 'line-active' : ''}`}></span>
-        {renderIcon(isSecondStep || isThirdStep || isLastStep, isThirdStep || isLastStep)}
-        <span className={`line ${isThirdStep || isLastStep ? 'line-active' : ''}`}></span>
-      </div>
+        <div className='form-progress-bar-wrapper'>
+          <div className="form-progress-bar">
+            <span className={`line ${isFirstStep || isSecondStep || isThirdStep || isLastStep ? 'line-active' : ''}`}></span>
+            {renderIcon(true, isSecondStep || isThirdStep || isLastStep)}
+            <span className={`line ${isSecondStep || isThirdStep || isLastStep ? 'line-active' : ''}`}></span>
+            {renderIcon(isSecondStep || isThirdStep || isLastStep, isThirdStep || isLastStep)}
+            <span className={`line ${isThirdStep || isLastStep ? 'line-active' : ''}`}></span>
+          </div>
+        </div>
+      
     </div>
   );
 };

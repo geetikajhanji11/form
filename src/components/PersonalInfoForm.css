@@ -1,0 +1,62 @@
+.personal-info-page {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.back-button {
+
+    box-sizing: border-box;
+    padding: 0px;
+    gap: 8px;
+    
+    margin: 0 auto;
+    width: 68px;
+    height: 40px;
+    
+    /* Primary/500 */
+    border: 1px solid #443EFF;
+    border-radius: 4px;
+    
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    
+}
+
+
+
+label {
+    margin-top: 15px;
+    font-weight: bold;
+    height: 20px;
+}
+
+.input-field {
+    margin-top: 8px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px #CBCAD5 solid;
+}
+
+.error-input-field {
+    margin-top: 8px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px #BA3B3B solid;
+}
+
+.error {
+
+    /* font-family: Montserrat; */
+    margin-top: 2px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #BA3B3B;
+}
+
