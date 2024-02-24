@@ -1,7 +1,8 @@
-// NavBar.js
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import './NavBar.css'; // Assuming you will style the NavBar using CSS
+import './NavBar.css';
+import AdjustOutlinedIcon from '@mui/icons-material/AdjustOutlined';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 
 const NavBar = () => {
   const location = useLocation();
@@ -12,6 +13,15 @@ const NavBar = () => {
   const isThirdStep = step === "/confirmation";
   const isLastStep = step === "/form-submitted";
 
+  // Helper function to determine which icon to display
+  const renderIcon = (isActive, isCompleted) => {
+    return isCompleted ? (
+      <CheckCircleOutlineOutlinedIcon className={`icon ${isActive ? 'active' : ''}`} />
+    ) : (
+      <AdjustOutlinedIcon className={`icon ${isActive ? 'active' : ''}`} />
+    );
+  };
+
   return (
     <div className="navbar">
         
@@ -20,20 +30,16 @@ const NavBar = () => {
                 <div className="title">Complete Student Profile</div>
             </div>
             <div className="right-content">
-                <div className="title">I'll do it later</div> {/* Align this to the extreme right */}
+                <div className="title">I'll do it later</div>
             </div>
         </div>
         
       <div className="progress-bar">
-        <span className={`line ${isFirstStep || isSecondStep || isThirdStep || isLastStep ? 'active' : ''}`}></span>
-        <span className={`circle ${isFirstStep || isSecondStep || isThirdStep || isLastStep ? 'active' : ''}`}>
-          {isSecondStep || isThirdStep || isLastStep ? '✓' : ''}
-        </span>
-        <span className={`line ${isSecondStep || isThirdStep || isLastStep ? 'active' : ''}`}></span>
-        <span className={`circle ${isSecondStep || isThirdStep || isLastStep ? 'active' : ''}`}>
-          {isThirdStep || isLastStep ? '✓' : ''}
-        </span>
-        <span className={`line ${isThirdStep || isLastStep ? 'active' : ''}`}></span>
+        <span className={`line ${isFirstStep || isSecondStep || isThirdStep || isLastStep ? 'line-active' : ''}`}></span>
+        {renderIcon(true, isSecondStep || isThirdStep || isLastStep)}
+        <span className={`line ${isSecondStep || isThirdStep || isLastStep ? 'line-active' : ''}`}></span>
+        {renderIcon(isSecondStep || isThirdStep || isLastStep, isThirdStep || isLastStep)}
+        <span className={`line ${isThirdStep || isLastStep ? 'line-active' : ''}`}></span>
       </div>
     </div>
   );
