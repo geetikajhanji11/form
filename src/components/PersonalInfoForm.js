@@ -60,42 +60,69 @@ const PersonalInfoForm = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate("/");
+  }
+
   return (
     <div>
-      <h2>Step 1: Personal Information</h2>
-      <input
-        type="text"
-        name="firstName"
-        placeholder="First Name"
-        value={localFormData.firstName}
-        onChange={handleChange}
-      />
-      {errors.firstName && <p>{errors.firstName}</p>}
-      <input
-        type="text"
-        name="lastName"
-        placeholder="Last Name"
-        value={localFormData.lastName}
-        onChange={handleChange}
-      />
-      {errors.lastName && <p>{errors.lastName}</p>}
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={localFormData.email}
-        onChange={handleChange}
-      />
-      {errors.email && <p>{errors.email}</p>}
-      <input
-        type="date"
-        name="dateOfBirth"
-        placeholder="Date of Birth"
-        value={localFormData.dateOfBirth}
-        onChange={handleChange}
-      />
-      {errors.dateOfBirth && <p>{errors.dateOfBirth}</p>}
-      <button onClick={handleNext}>Next</button>
+      <h2>Let's Enter your Personal Details</h2>
+
+      <div className='form_personal'>
+
+        <div>
+          <label>First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            value={localFormData.firstName}
+            onChange={handleChange}
+          />
+          {errors.firstName && <p>{errors.firstName}</p>}
+        </div>
+        
+        <div>
+          <label>Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={localFormData.lastName}
+            onChange={handleChange}
+          />
+          {errors.lastName && <p>{errors.lastName}</p>}
+        </div>
+
+        <div>
+          <label>Email ID</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={localFormData.email}
+            onChange={handleChange}
+          />
+          {errors.email && <p>{errors.email}</p>}
+        </div>
+
+        <div>
+          <label>Date of Birth</label>
+          <input
+            type="date"
+            name="dateOfBirth"
+            placeholder="Date of Birth"
+            value={localFormData.dateOfBirth}
+            onChange={handleChange}
+          />
+          {errors.dateOfBirth && <p>{errors.dateOfBirth}</p>}
+        </div>
+      </div>
+
+      <div className='actions'>
+        <button onClick={handleBack}>Back</button>
+        <button onClick={handleNext}>Save & Continue</button>
+      </div>
     </div>
   );
 };
