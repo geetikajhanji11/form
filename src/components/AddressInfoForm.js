@@ -1,7 +1,7 @@
-// AddressInfoForm.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormData } from '../FormDataContext';
+import './AddressInfoForm.css';
 
 const AddressInfoForm = () => {
   const navigate = useNavigate();
@@ -70,83 +70,90 @@ const AddressInfoForm = () => {
   };
 
   return (
-    <div>
+    <div className='address-info-page'>
       <h2>Enter your current mailing address</h2>
      
       <div className='form_address'>
+        <div className="row">
+          <div className="form-group col-md-6">
+            <label>Address Line 1 *</label>
+            <input
+              type="text"
+              className={errors.addressLine1 ? "form-control is-invalid" : "form-control"}
+              name="addressLine1"
+              placeholder="Enter your address (Apt., suit, house no.)"
+              value={localFormData.addressLine1}
+              onChange={handleChange}
+            />
+            {errors.addressLine1 && <div className="invalid-feedback">{errors.addressLine1}</div>}
+          </div>
+          <div className="form-group col-md-6">
+            <label>Address Line 2 (optional)</label>
+            <input
+              type="text"
+              className="form-control"
+              name="addressLine2"
+              placeholder="Enter your address line"
+              value={localFormData.addressLine2}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
 
-      <div>
-        <label>Address Line 1 *</label>
-        <input
-          type="text"
-          name="addressLine1"
-          placeholder="Enter your address (Apt., suit, house no.)"
-          value={localFormData.addressLine1}
-          onChange={handleChange}
-        />
-        {errors.addressLine1 && <p>{errors.addressLine1}</p>}
+        <div className="row">
+          <div className="form-group col-md-4">
+            <label>Country</label>
+            <input
+              type="text"
+              className={errors.country ? "form-control is-invalid" : "form-control"}
+              name="country"
+              placeholder="Select a Country"
+              value={localFormData.country}
+              onChange={handleChange}
+            />
+            {errors.country && <div className="invalid-feedback">{errors.country}</div>}
+          </div>
+          <div className="form-group col-md-4">
+            <label>City</label>
+            <input
+              type="text"
+              className={errors.city ? "form-control is-invalid" : "form-control"}
+              name="city"
+              placeholder="Select a City"
+              value={localFormData.city}
+              onChange={handleChange}
+            />
+            {errors.city && <div className="invalid-feedback">{errors.city}</div>}
+          </div>
+          <div className="form-group col-md-4">
+            <label>State</label>
+            <input
+              type="text"
+              className={errors.state ? "form-control is-invalid" : "form-control"}
+              name="state"
+              placeholder="Select a State"
+              value={localFormData.state}
+              onChange={handleChange}
+            />
+            {errors.state && <div className="invalid-feedback">{errors.state}</div>}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="form-group col-md-4">
+            <label>Pincode</label>
+            <input
+              type="text"
+              className={errors.zipCode ? "form-control is-invalid" : "form-control"}
+              name="zipCode"
+              placeholder="Enter Pincode"
+              value={localFormData.zipCode}
+              onChange={handleChange}
+            />
+            {errors.zipCode && <div className="invalid-feedback">{errors.zipCode}</div>}
+          </div>
+        </div>
       </div>
-
-      <div>
-        <label>Address Line 2 (optional)</label>
-        <input
-          type="text"
-          name="addressLine2"
-          placeholder="Enter your address line"
-          value={localFormData.addressLine2}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label>Country</label>
-        <input
-          type="text"
-          name="country"
-          placeholder="Select a Country"
-          value={localFormData.country}
-          onChange={handleChange}
-        />
-        {errors.country && <p>{errors.country}</p>}
-      </div>
-
-      <div>
-        <label>City</label>
-        <input
-          type="text"
-          name="city"
-          placeholder="Select a City"
-          value={localFormData.city}
-          onChange={handleChange}
-        />
-        {errors.city && <p>{errors.city}</p>}
-      </div>
-
-      <div>
-        <label>State</label>
-        <input
-          type="text"
-          name="state"
-          placeholder="Select a State"
-          value={localFormData.state}
-          onChange={handleChange}
-        />
-        {errors.state && <p>{errors.state}</p>}
-      </div>
-
-      <div>
-        <label>Pincode</label>
-        <input
-          type="text"
-          name="zipCode"
-          placeholder="Enter Pincode"
-          value={localFormData.zipCode}
-          onChange={handleChange}
-        />
-        {errors.zipCode && <p>{errors.zipCode}</p>}
-      </div>
-
-    </div>
 
       <div className='actions'>
         <button onClick={handleBack}>Back</button>

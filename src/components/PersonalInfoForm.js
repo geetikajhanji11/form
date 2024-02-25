@@ -1,4 +1,3 @@
-// PersonalInfoForm.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormData } from '../FormDataContext';
@@ -26,10 +25,39 @@ const PersonalInfoForm = () => {
     });
   }, [formData]);
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setLocalFormData({ ...localFormData, [name]: value });
-  // };
+  const validate = () => {
+    const validationErrors = {};
+    const currentDate = new Date();
+    const minDate = new Date();
+    minDate.setFullYear(currentDate.getFullYear() - 30); // 30 years ago from now
+    const maxDate = new Date();
+    maxDate.setFullYear(currentDate.getFullYear() - 10); // 10 years ago from now
+
+    if (!localFormData.firstName) {
+      validationErrors.firstName = 'First Name is required';
+    } else if (!/^[a-zA-Z]+$/.test(localFormData.firstName)) {
+      validationErrors.firstName = 'First Name is invalid';
+    }
+    if (!localFormData.lastName) {
+      validationErrors.lastName = 'Last Name is required';
+    } else if (!/^[a-zA-Z]+$/.test(localFormData.lastName)) {
+      validationErrors.lastName = 'Last Name is invalid';
+    }
+    if (!localFormData.email) {
+      validationErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(localFormData.email)) {
+      validationErrors.email = 'Email is invalid';
+    }
+    if (!localFormData.dateOfBirth) {
+      validationErrors.dateOfBirth = 'Date of Birth is required';
+    } else {
+      const dob = new Date(localFormData.dateOfBirth);
+      if (dob > maxDate || dob < minDate) {
+        validationErrors.dateOfBirth = 'Age should be between 10 and 30 years';
+      }
+    }
+    return validationErrors;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +68,16 @@ const PersonalInfoForm = () => {
     if (value.trim() === '') {
       // Field is empty, add/set the error
       newErrors[name] = `${name.charAt(0).toUpperCase() + name.slice(1)} is required`;
-    } else if (name === 'email' && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
+    } 
+    
+    else if (name === 'firstName' && /\d/.test(value)) {
+      newErrors[name] = 'First Name is invalid';
+    }
+
+    else if (name === 'lastName' && /\d/.test(value)) {
+      newErrors[name] = 'Last Name is invalid';
+    }
+    else if (name === 'email' && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
       // Email is not valid
       newErrors[name] = 'Email is invalid';
     } else {
@@ -48,26 +85,6 @@ const PersonalInfoForm = () => {
       delete newErrors[name];
     }
     setErrors(newErrors);
-  };
-
-  const validate = () => {
-    const validationErrors = {};
-    if (!localFormData.firstName) {
-      validationErrors.firstName = 'First Name is required';
-    }
-    if (!localFormData.lastName) {
-      validationErrors.lastName = 'Last Name is required';
-    }
-    if (!localFormData.email) {
-      validationErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(localFormData.email)) {
-      validationErrors.email = 'Email is invalid';
-    }
-    if (!localFormData.dateOfBirth) {
-      validationErrors.dateOfBirth = 'Date of Birth is required';
-    }
-    // Additional validation can be added here
-    return validationErrors;
   };
 
   const handleNext = () => {
@@ -100,7 +117,7 @@ const PersonalInfoForm = () => {
             value={localFormData.firstName}
             onChange={handleChange}
           />
-          {errors.firstName && <p className='error'>Incorrect Entry</p>}
+          {errors.firstName && <p className='error'>{errors.firstName}</p>}
         </div>
         
         <div className='form-field col col-lg-4 col-md-6 col-sm-12'>
@@ -113,7 +130,7 @@ const PersonalInfoForm = () => {
             value={localFormData.lastName}
             onChange={handleChange}
           />
-          {errors.lastName && <p className='error'>Incorrect Entry</p>}
+          {errors.lastName && <p className='error'>{errors.lastName}</p>}
         </div>
 
         <div className='form-field col col-lg-4 col-md-6 col-sm-12'>
@@ -126,7 +143,7 @@ const PersonalInfoForm = () => {
             value={localFormData.email}
             onChange={handleChange}
           />
-          {errors.email && <p className='error'>Incorrect Entry</p>}
+          {errors.email && <p className='error'>{errors.email}</p>}
         </div>
 
         <div className='form-field col col-lg-4 col-md-6 col-sm-12'>
@@ -139,7 +156,7 @@ const PersonalInfoForm = () => {
             value={localFormData.dateOfBirth}
             onChange={handleChange}
           />
-          {errors.dateOfBirth && <p className='error'>Incorrect Entry</p>}
+          {errors.dateOfBirth && <p className='error'>{errors.dateOfBirth}</p>}
         </div>
       </div>
 
