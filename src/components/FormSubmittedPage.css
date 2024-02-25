@@ -1,0 +1,40 @@
+.form-submit-container {
+    text-align:center;
+    margin-top: '50px';
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    background-color: #F8FFEE;
+    border: 1px #B1EE80 solid;
+    border-radius: 8px;
+    padding: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.form-submit-title, .form-submit-subtitle {
+    color: #0D6008;
+    padding: 15px;
+}
+
+.form-submit-title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: center;
+    
+}
+
+.form-submit-subtitle {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+.svg-icon {
+    margin: 18px;
+}

@@ -33,7 +33,7 @@ const NavBar = () => {
                 <div className="title">I'll do it later</div>
             </div>
         </div>
-        
+        { (isFirstStep || isSecondStep || isThirdStep) &&
         <div className='form-progress-bar-wrapper'>
           <div className="form-progress-bar">
             <span className={`line ${isFirstStep || isSecondStep || isThirdStep || isLastStep ? 'line-active' : ''}`}></span>
@@ -43,6 +43,7 @@ const NavBar = () => {
             <span className={`line ${isThirdStep || isLastStep ? 'line-active' : ''}`}></span>
           </div>
         </div>
+}
       
     </div>
   );
