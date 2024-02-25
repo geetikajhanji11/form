@@ -30,3 +30,74 @@
     font-size: 14px;
     margin-top: 5px;
 }
+
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* You can adjust the background color as needed */
+    padding: 20px 0; /* Adjust padding as needed */
+}
+
+.actions {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.save-and-continue-button {
+
+    margin-right: 30px;
+    justify-self:left;
+    width: Fill (219px);
+    height: Fill (40px);
+    padding: 10px, 16px, 10px, 16px;
+    border-radius: 4px;
+    gap: 8px;
+
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: center;
+
+    padding: 0px;
+    gap: 8px;
+
+    width: 219px;
+    height: 40px;
+
+    border-radius: 4px;
+}
+
+.back-button {
+
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: center;
+    
+    
+        box-sizing: border-box;
+        padding: 0px;
+        gap: 8px;
+        margin-left: 30px;
+        width: 68px;
+        height: 40px;
+        
+        /* Primary/500 */
+        border: 1px solid #443EFF;
+        border-radius: 4px;
+        
+        /* Inside auto layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        
+    }

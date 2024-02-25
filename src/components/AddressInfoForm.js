@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormData } from '../FormDataContext';
 import './AddressInfoForm.css';
+import SingleLine from './SingleLine';
 
 const AddressInfoForm = () => {
   const navigate = useNavigate();
@@ -163,10 +164,14 @@ const AddressInfoForm = () => {
         </div>
       </div>
 
-      <div className='actions'>
-        <button onClick={handleBack}>Back</button>
-        <button disabled={!isButtonEnabled} onClick={handleNext}>Finish</button>
+      <div className='footer'>
+        <SingleLine />
+        <div className='actions'>
+          <button  className='back-button' onClick={handleBack}>Back</button>
+          <button  className='save-and-continue-button' disabled={!isButtonEnabled} onClick={handleNext}>Finish</button>
+        </div>
       </div>
+
     </div>
   );
 };
