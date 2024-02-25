@@ -7,6 +7,10 @@ import AddressInfoForm from './components/AddressInfoForm';
 import ConfirmationPage from './components/ConfirmationPage';
 import FormSubmittedPage from './components/FormSubmittedPage';
 import NavBar from './components/NavBar'; // Import the NavBar component
+import ProgressBar from './components/ProgressBar';
+
+import "./App.css"
+import SingleLine from './components/SingleLine';
 
 function App() {
   return (
@@ -14,6 +18,11 @@ function App() {
       <Router>
         <Fragment>
           <NavBar /> {/* Include the NavBar component within the Router */}
+          
+          <SingleLine />
+        
+
+          <ProgressBar />
           <Routes>
             <Route path="/" element={<PersonalInfoForm />} />
             <Route path="/address-info" element={<AddressInfoForm />} />

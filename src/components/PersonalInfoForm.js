@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormData } from '../FormDataContext';
 import "./PersonalInfoForm.css"
+import SingleLine from './SingleLine';
 
 const PersonalInfoForm = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const PersonalInfoForm = () => {
     dateOfBirth: formData.dateOfBirth || '',
   });
   const [errors, setErrors] = useState({});
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
   useEffect(() => {
     // Update local form data if formData context changes
@@ -160,6 +162,7 @@ const PersonalInfoForm = () => {
         </div>
       </div>
 
+      <SingleLine />
       <div className='actions'>
         <button className='back-button' onClick={handleBack}>Back</button>
         <button onClick={handleNext}>Save & Continue</button>
