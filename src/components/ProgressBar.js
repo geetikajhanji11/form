@@ -24,7 +24,7 @@ const ProgressBar = () => {
 
   return (
     <div>
-      { (isFirstStep || isSecondStep || isThirdStep) &&
+      { (isFirstStep || isSecondStep) &&
         <div className='form-progress-bar-wrapper'>
           <div className="form-progress-bar">
             <span className={`line ${isFirstStep || isSecondStep || isThirdStep || isLastStep ? 'line-active' : ''}`}></span>

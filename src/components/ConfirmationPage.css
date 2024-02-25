@@ -1,0 +1,50 @@
+/* ConfirmationPage.css */
+.confirmation-page {
+  padding: 3%;
+}
+
+.confirm-heading {
+  font-family: 'Poppins', sans-serif; /* Use Poppins for values */
+  font-weight: 500;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.info-heading {
+  font-weight: 400;
+}
+
+.label {
+  font-family: 'Noto Sans', sans-serif; 
+  margin-top: 15px;
+  
+}
+
+
+.value {
+  font-family: 'Poppins', sans-serif; /* Use Poppins for values */
+  font-weight: 600;
+  margin-bottom: 20px; 
+  margin-top: 10px;
+}
+
+.info-details p {
+  margin: 0; /* Reset default margin */
+}
+
+.button-section {
+  margin-top: 20px;
+}
+
+.button-section button {
+  margin-right: 10px;
+}
+
+.item{
+    display: flex;
+    flex-direction: column;
+}
+
+.address-details-section, .personal-info-section {
+  margin-top: 45px;
+}

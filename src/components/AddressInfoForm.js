@@ -85,7 +85,7 @@ const AddressInfoForm = () => {
       <div className='form_address'>
         <div className="row">
           <div className="form-group col-md-6">
-            <label>Address Line 1 *</label>
+            <label>Address Line 1 <span className='required'>*</span></label>
             <input
               type="text"
               className={errors.addressLine1 ? "form-control is-invalid" : "form-control"}

@@ -75,6 +75,10 @@
     background-color: #1D1B201F;
 }
 
+.required {
+    color: #FF3236;
+}
+
 .save-and-continue-button:enabled {
     background-color: #443EFF;
     color: #FFFFFF;
