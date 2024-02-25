@@ -4,7 +4,7 @@ import { useFormData } from '../FormDataContext';
 import './AddressInfoForm.css';
 import SingleLine from './SingleLine';
 
-const AddressInfoForm = () => {
+const AddressInfoForm = ({  onNextStep, onPrevStep }) => {
   const navigate = useNavigate();
   const { formData, updateFormData } = useFormData();
   const [localFormData, setLocalFormData] = useState({
@@ -68,18 +68,20 @@ const AddressInfoForm = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
       updateFormData(localFormData);
-      navigate('/confirmation');
+      onNextStep();
     } else {
       setErrors(validationErrors);
     }
   };
 
   const handleBack = () => {
-    navigate('/');
+    onPrevStep();
   };
 
   return (
     <div className='address-info-page'>
+
+      <div className='form-upper-body'>
       <h2>Enter your current mailing address</h2>
      
       <div className='form_address'>
@@ -162,6 +164,8 @@ const AddressInfoForm = () => {
             {errors.zipCode && <div className="invalid-feedback">{errors.zipCode}</div>}
           </div>
         </div>
+      </div>
+
       </div>
 
       <div className='footer'>

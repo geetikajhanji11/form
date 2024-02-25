@@ -1,11 +1,5 @@
 
 
-.personal-info-page {
-    padding-left: 3%;
-    padding-right: 3%;
-}
-
-
 
 
 
@@ -43,14 +37,20 @@ label {
     color: #BA3B3B;
 }
 
+.form-upper-body {
+    padding: 20px 0;
+    padding-left: 3%;
+    padding-right: 3%;
+}
 
 .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    /* position: fixed; */
+    /* bottom: 0;
+    left: 0; */
     width: 100%;
-    background-color: #fff; /* You can adjust the background color as needed */
-    padding: 20px 0; /* Adjust padding as needed */
+    padding-bottom: 20px;
+    /* background-color: #fff; You can adjust the background color as needed */
+    /* padding: 20px 0; Adjust padding as needed */
 }
 
 .actions {

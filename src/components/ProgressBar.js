@@ -4,14 +4,13 @@ import AdjustOutlinedIcon from '@mui/icons-material/AdjustOutlined';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import './ProgressBar.css'; // Assuming the CSS needed for ProgressBar is in NavBar.css
 
-const ProgressBar = () => {
-  const location = useLocation();
-  const step = location.pathname;
+const ProgressBar = ({currentStep}) => {
 
-  const isFirstStep = step === "/";
-  const isSecondStep = step === "/address-info";
-  const isThirdStep = step === "/confirmation";
-  const isLastStep = step === "/form-submitted";
+
+  const isFirstStep = currentStep == 1;
+  const isSecondStep = currentStep == 2;
+  const isThirdStep = currentStep == 3;
+  const isLastStep = currentStep == 4;
 
   // Helper function to determine which icon to display
   const renderIcon = (isActive, isCompleted) => {

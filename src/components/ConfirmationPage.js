@@ -6,7 +6,7 @@ import SingleLine from './SingleLine';
 
 
 
-const ConfirmationPage = () => {
+const ConfirmationPage = ({ onPrevStep, onNextStep }) => {
   const { formData } = useFormData();
   const navigate = useNavigate();
 
@@ -15,11 +15,11 @@ const ConfirmationPage = () => {
     console.log('Submitting form data:', formData);
 
     // Navigate to the form submitted page upon successful submission
-    navigate('/form-submitted');
+    onNextStep();
   };
 
   const handleBack = () => {
-    navigate("/address-info");
+    onPrevStep();
   }
 
   const formatDate = (dateString) => {
@@ -29,6 +29,8 @@ const ConfirmationPage = () => {
 
   return (
     <div className="confirmation-page">
+
+<div className='form-upper-body'>
       <div className='confirm-heading'>Confirm Your Information</div>
       
       {/* Personal Info Section */}
@@ -74,6 +76,7 @@ const ConfirmationPage = () => {
         </div>
       </div>
 
+</div>
       <div className='footer'>
         <SingleLine />
         <div className='actions'>

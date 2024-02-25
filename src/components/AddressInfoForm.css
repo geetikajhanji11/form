@@ -1,7 +1,4 @@
-.address-info-page {
-    padding-left: 3%;
-    padding-right: 3%;
-}
+
 
 
 .form_address {
@@ -34,12 +31,12 @@
 
 
 .footer {
-    position: fixed;
+    /* position: fixed;
     bottom: 0;
-    left: 0;
+    left: 0; */
     width: 100%;
-    background-color: #fff; /* You can adjust the background color as needed */
-    padding: 20px 0; /* Adjust padding as needed */
+    /* background-color: #fff; You can adjust the background color as needed */
+    /* padding: 20px 0;  */
 }
 
 .actions {
@@ -110,4 +107,10 @@
         order: 0;
         flex-grow: 0;
         
+    }
+
+    .form-upper-body {
+        padding: 20px 0;
+        padding-left: 3%;
+        padding-right: 3%;
     }

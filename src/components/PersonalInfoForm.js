@@ -4,7 +4,7 @@ import { useFormData } from '../FormDataContext';
 import "./PersonalInfoForm.css"
 import SingleLine from './SingleLine';
 
-const PersonalInfoForm = () => {
+const PersonalInfoForm = ({ onNextStep }) => {
   const navigate = useNavigate();
   const { formData, updateFormData } = useFormData();
   // Initialize local state with formData from context
@@ -101,7 +101,7 @@ const PersonalInfoForm = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
       updateFormData(localFormData); // Update the context with current form data
-      navigate('/address-info');
+      onNextStep(); 
     } else {
       setErrors(validationErrors);
     }
@@ -113,6 +113,8 @@ const PersonalInfoForm = () => {
 
   return (
     <div className='personal-info-page'>
+
+      <div className='form-upper-body'>
       <h2>Let's Enter your Personal Details</h2>
 
       <div className='form-personal row'>
@@ -168,6 +170,8 @@ const PersonalInfoForm = () => {
           />
           {errors.dateOfBirth && <p className='error'>{errors.dateOfBirth}</p>}
         </div>
+      </div>
+
       </div>
 
       <div className='footer'>

@@ -38,4 +38,18 @@
   }
 }
 
+.main-form-container {
+  margin: 30px;
+  background-color: #FFFFFF;
+  /* Adjust the horizontal & vertical offset, blur radius, and spread radius for a more prominent shadow */
+  box-shadow: 0px 8px 24px 0px #1018282E;
+  border-radius: 8px;
+}
+
+
+.main-form-container {
+  /* margin: 30px;
+  background-color: #FFFFFF;
+  box-shadow: inset 0px 0px 6px 0px #1018282E; Apply inset shadow to all borders */
+}
 
