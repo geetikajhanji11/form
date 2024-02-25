@@ -15,9 +15,9 @@ const AddressInfoForm = () => {
     zipCode: formData.zipCode || '',
   });
   const [errors, setErrors] = useState({});
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
   useEffect(() => {
-    // Update local form data when form data context changes
     setLocalFormData({
       addressLine1: formData.addressLine1 || '',
       addressLine2: formData.addressLine2 || '',
@@ -27,6 +27,13 @@ const AddressInfoForm = () => {
       zipCode: formData.zipCode || '',
     });
   }, [formData]);
+
+  useEffect(() => {
+    // Check if all required fields are filled
+    const allRequiredFieldsFilled = Object.keys(localFormData).filter(key => key !== 'addressLine2').every(key => localFormData[key].trim() !== '');
+    const noErrors = Object.keys(errors).length === 0;
+    setIsButtonEnabled(allRequiredFieldsFilled && noErrors);
+  }, [localFormData, errors]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,6 +59,7 @@ const AddressInfoForm = () => {
     } else if (!/^\d{6}$/.test(localFormData.zipCode)) {
       validationErrors.zipCode = 'Zip Code is invalid';
     }
+    setErrors(validationErrors);
     return validationErrors;
   };
 
@@ -157,7 +165,7 @@ const AddressInfoForm = () => {
 
       <div className='actions'>
         <button onClick={handleBack}>Back</button>
-        <button onClick={handleNext}>Finish</button>
+        <button disabled={!isButtonEnabled} onClick={handleNext}>Finish</button>
       </div>
     </div>
   );
