@@ -4,9 +4,7 @@ import { useFormData } from '../FormDataContext';
 import './ConfirmationPage.css'; // Import CSS for ConfirmationPage
 import SingleLine from './SingleLine';
 
-
-
-const ConfirmationPage = ({ onPrevStep, onNextStep }) => {
+const ConfirmationPage = ({ onNextStep }) => {
   const { formData } = useFormData();
   const navigate = useNavigate();
 
@@ -19,8 +17,8 @@ const ConfirmationPage = ({ onPrevStep, onNextStep }) => {
   };
 
   const handleBack = () => {
-    onPrevStep();
-  }
+    navigate("/address-info");
+  };
 
   const formatDate = (dateString) => {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -29,8 +27,6 @@ const ConfirmationPage = ({ onPrevStep, onNextStep }) => {
 
   return (
     <div className="confirmation-page">
-
-<div className='form-upper-body'>
       <div className='confirm-heading'>Confirm Your Information</div>
       
       {/* Personal Info Section */}
@@ -71,12 +67,14 @@ const ConfirmationPage = ({ onPrevStep, onNextStep }) => {
           <div className='item'><span className="label">State</span> <span className="value">{formData.state}</span></div>
           </div>
           <div className="col">
+          <div className='item'><span className="label">Country</span> <span className="value">{formData.country}</span></div>
+          </div>
+          <div className="col">
           <div className='item'><span className="label">Zip Code</span> <span className="value">{formData.zipCode}</span></div>
           </div>
         </div>
       </div>
 
-</div>
       <div className='footer'>
         <SingleLine />
         <div className='actions'>
@@ -84,8 +82,6 @@ const ConfirmationPage = ({ onPrevStep, onNextStep }) => {
           <button className='save-and-continue-button' onClick={handleSubmit}>Confirm and Submit</button>
         </div>
       </div>
-      
-      
     </div>
   );
 };

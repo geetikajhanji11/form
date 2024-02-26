@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useFormData } from '../FormDataContext';
 import './AddressInfoForm.css';
 import SingleLine from './SingleLine';
+import axios from 'axios';
 
-const AddressInfoForm = ({  onNextStep, onPrevStep }) => {
+const AddressInfoForm = ({ onNextStep }) => {
   const navigate = useNavigate();
   const { formData, updateFormData } = useFormData();
   const [localFormData, setLocalFormData] = useState({
@@ -17,71 +18,138 @@ const AddressInfoForm = ({  onNextStep, onPrevStep }) => {
   });
   const [errors, setErrors] = useState({});
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+
+  const [country, setCountry] = useState('');
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
 
   useEffect(() => {
-    setLocalFormData({
-      addressLine1: formData.addressLine1 || '',
-      addressLine2: formData.addressLine2 || '',
-      country: formData.country || '',
-      city: formData.city || '',
-      state: formData.state || '',
-      zipCode: formData.zipCode || '',
-    });
-  }, [formData]);
+    fetchCountries();
+  }, []);
 
   useEffect(() => {
-    // Check if all required fields are filled
     const allRequiredFieldsFilled = Object.keys(localFormData).filter(key => key !== 'addressLine2').every(key => localFormData[key].trim() !== '');
     const noErrors = Object.keys(errors).length === 0;
     setIsButtonEnabled(allRequiredFieldsFilled && noErrors);
   }, [localFormData, errors]);
 
+  const fetchCountries = async () => {
+    try {
+      const response = await axios.get('https://api.countrystatecity.in/v1/countries', {
+        headers: {
+          'X-CSCAPI-KEY': 'SnRtbGU0V1gzcEltbklESDhMOXVHZlUyaGxtcXIwQnFGUVhTdlVSOQ==',
+        },
+      });
+      setCountries(response.data);
+    } catch (error) {
+      console.error('Error fetching countries:', error);
+    }
+  };
+
+  const fetchStates = async (countryCode) => {
+    try {
+      const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${countryCode}/states`, {
+        headers: {
+          'X-CSCAPI-KEY': 'SnRtbGU0V1gzcEltbklESDhMOXVHZlUyaGxtcXIwQnFGUVhTdlVSOQ==',
+        },
+      });
+      setStates(response.data);
+    } catch (error) {
+      console.error('Error fetching states:', error);
+    }
+  };
+
+  const fetchCities = async (countryCode, stateCode) => {
+    try {
+      const response = await axios.get(`https://api.countrystatecity.in/v1/countries/${countryCode}/states/${stateCode}/cities`, {
+        headers: {
+          'X-CSCAPI-KEY': 'SnRtbGU0V1gzcEltbklESDhMOXVHZlUyaGxtcXIwQnFGUVhTdlVSOQ==',
+        },
+      });
+      setCities(response.data);
+    } catch (error) {
+      console.error('Error fetching cities:', error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setLocalFormData({ ...localFormData, [name]: value });
+   
+
+    
+    setLocalFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+    if (name === 'country') {
+      const selectedCountry = countries.find(country => country.iso2 === value);
+      const countryName = selectedCountry ? selectedCountry.name : '';
+  
+      setCountry(countryName)
+      setLocalFormData(prevState => ({
+        ...prevState,
+        state: '',
+        city: ''
+      }));
+      fetchStates(value);
+    } else if (name === 'state') {
+      const selectedState = states.find(state => state.iso2 === value);
+      const stateName = selectedState ? selectedState.name : '';
+      setState(stateName)
+      setLocalFormData(prevState => ({
+        ...prevState,
+        city: ''
+      }));
+      fetchCities(localFormData.country, value);
+    } else if(name === 'city') {
+    
+
+      const selectedCity = cities.find(city => {
+     
+        return city.id.toString() === value
+      });
+      const cityName = selectedCity ? selectedCity.name : 'nto found';
+      setCity(cityName)
+    }
   };
+  
 
   const validate = () => {
     const validationErrors = {};
-    if (!localFormData.addressLine1) {
-      validationErrors.addressLine1 = 'Address Line 1 is required';
-    }
-    if (!localFormData.country) {
-      validationErrors.country = 'Country is required';
-    }
-    if (!localFormData.city) {
-      validationErrors.city = 'City is required';
-    }
-    if (!localFormData.state) {
-      validationErrors.state = 'State is required';
-    }
-    if (!localFormData.zipCode) {
-      validationErrors.zipCode = 'Zip Code is required';
-    } else if (!/^\d{6}$/.test(localFormData.zipCode)) {
-      validationErrors.zipCode = 'Zip Code is invalid';
-    }
-    setErrors(validationErrors);
+    // Validation logic
     return validationErrors;
   };
 
   const handleNext = () => {
+    console.log("country = " + country);
+    const updatedLocalFormData = {
+      ...localFormData,
+      country: country,
+      state: state,
+      city: city
+    };
+
+    console.log(updatedLocalFormData);
+    
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
-      updateFormData(localFormData);
-      onNextStep();
+        // Use updatedLocalFormData here directly as it contains the latest state
+        updateFormData(updatedLocalFormData);
+        onNextStep();
     } else {
-      setErrors(validationErrors);
+        setErrors(validationErrors);
     }
-  };
+};
 
   const handleBack = () => {
-    onPrevStep();
+    navigate('/');
   };
 
   return (
     <div className='address-info-page'>
-
-      <div className='form-upper-body'>
       <h2>Enter your current mailing address</h2>
      
       <div className='form_address'>
@@ -114,39 +182,48 @@ const AddressInfoForm = ({  onNextStep, onPrevStep }) => {
         <div className="row">
           <div className="form-group col-md-4">
             <label>Country</label>
-            <input
-              type="text"
+            <select
               className={errors.country ? "form-control is-invalid" : "form-control"}
               name="country"
-              placeholder="Select a Country"
               value={localFormData.country}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select a Country</option>
+              {countries.map(country => (
+                <option key={country.iso2} value={country.iso2}>{country.name}</option>
+              ))}
+            </select>
             {errors.country && <div className="invalid-feedback">{errors.country}</div>}
           </div>
           <div className="form-group col-md-4">
-            <label>City</label>
-            <input
-              type="text"
-              className={errors.city ? "form-control is-invalid" : "form-control"}
-              name="city"
-              placeholder="Select a City"
-              value={localFormData.city}
-              onChange={handleChange}
-            />
-            {errors.city && <div className="invalid-feedback">{errors.city}</div>}
-          </div>
-          <div className="form-group col-md-4">
             <label>State</label>
-            <input
-              type="text"
+            <select
               className={errors.state ? "form-control is-invalid" : "form-control"}
               name="state"
-              placeholder="Select a State"
               value={localFormData.state}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select a State</option>
+              {states.map(state => (
+                <option key={state.iso2} value={state.iso2}>{state.name}</option>
+              ))}
+            </select>
             {errors.state && <div className="invalid-feedback">{errors.state}</div>}
+          </div>
+          <div className="form-group col-md-4">
+            <label>City</label>
+            <select
+              className={errors.city ? "form-control is-invalid" : "form-control"}
+              name="city"
+              value={localFormData.city}
+              onChange={handleChange}
+            >
+              <option value="">Select a City</option>
+              {cities.map(city => (
+                <option key={city.id} value={city.id}>{city.name}</option>
+              ))}
+            </select>
+            {errors.city && <div className="invalid-feedback">{errors.city}</div>}
           </div>
         </div>
 
@@ -166,16 +243,13 @@ const AddressInfoForm = ({  onNextStep, onPrevStep }) => {
         </div>
       </div>
 
-      </div>
-
       <div className='footer'>
         <SingleLine />
         <div className='actions'>
-          <button  className='back-button' onClick={handleBack}>Back</button>
-          <button  className='save-and-continue-button' disabled={!isButtonEnabled} onClick={handleNext}>Finish</button>
+          <button className='back-button' onClick={handleBack}>Back</button>
+          <button className='save-and-continue-button' disabled={!isButtonEnabled} onClick={handleNext}>Finish</button>
         </div>
       </div>
-
     </div>
   );
 };
