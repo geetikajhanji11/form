@@ -1,0 +1,52 @@
+.top-image{
+    height: 58.81px;
+    width: 1366px;
+ }
+
+.landing-banner{
+    z-index: -1;
+}
+
+.landing-banner-container{
+    position: absolute;
+    z-index: 1;
+    letter-spacing: -.08125rem;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    top: 120px;
+    text-align: start;
+    margin: 25px;
+    color: white;
+    width: 100%;
+    max-width: 40rem;
+    left: 60px;
+}
+
+.list{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 300px;
+    margin: 25px;
+    color: white;
+    display: block;
+    left: 60px;
+}
+
+.checkbox{
+    height: 20px;
+    width: 20px;
+    padding-right: 5px;
+}
+
+.list-object{
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.list-text{
+    font-weight: 700;
+}
+
+

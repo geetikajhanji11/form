@@ -5,7 +5,7 @@ import './AddressInfoForm.css';
 import SingleLine from './SingleLine';
 import axios from 'axios';
 
-const AddressInfoForm = ({ onNextStep }) => {
+const AddressInfoForm = ({ onNextStep, onPrevStep }) => {
   const navigate = useNavigate();
   const { formData, updateFormData } = useFormData();
   const [localFormData, setLocalFormData] = useState({
@@ -145,11 +145,13 @@ const AddressInfoForm = ({ onNextStep }) => {
 };
 
   const handleBack = () => {
-    navigate('/');
+    onPrevStep()
   };
 
   return (
     <div className='address-info-page'>
+
+<div className='form-upper-body'>
       <h2>Enter your current mailing address</h2>
      
       <div className='form_address'>
@@ -241,6 +243,8 @@ const AddressInfoForm = ({ onNextStep }) => {
             {errors.zipCode && <div className="invalid-feedback">{errors.zipCode}</div>}
           </div>
         </div>
+      </div>
+
       </div>
 
       <div className='footer'>

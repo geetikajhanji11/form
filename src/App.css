@@ -39,17 +39,19 @@
 }
 
 .main-form-container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: flex-start; /* Align children at the start of the container */
+  align-items: stretch; /* Stretch children to fill the container width */
   margin: 30px;
   background-color: #FFFFFF;
-  /* Adjust the horizontal & vertical offset, blur radius, and spread radius for a more prominent shadow */
   box-shadow: 0px 8px 24px 0px #1018282E;
   border-radius: 8px;
+  height: 100vh;
 }
 
-
-.main-form-container {
-  /* margin: 30px;
-  background-color: #FFFFFF;
-  box-shadow: inset 0px 0px 6px 0px #1018282E; Apply inset shadow to all borders */
+.form-container {
+  flex: 1; /* This allows the form-container to grow and occupy remaining space */
+  padding: 20px; /* Add padding to the form container if needed */
+  display: flex;
 }
-

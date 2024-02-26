@@ -1,23 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormData } from '../FormDataContext';
-import './ConfirmationPage.css'; // Import CSS for ConfirmationPage
+import './ConfirmationPage.css'; 
 import SingleLine from './SingleLine';
 
-const ConfirmationPage = ({ onNextStep }) => {
+const ConfirmationPage = ({ onNextStep, onPrevStep }) => {
   const { formData } = useFormData();
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    // Here you might want to actually submit the form data to a backend
     console.log('Submitting form data:', formData);
-
-    // Navigate to the form submitted page upon successful submission
     onNextStep();
   };
 
   const handleBack = () => {
-    navigate("/address-info");
+    onPrevStep()
   };
 
   const formatDate = (dateString) => {
@@ -27,6 +24,8 @@ const ConfirmationPage = ({ onNextStep }) => {
 
   return (
     <div className="confirmation-page">
+
+<div className='form-upper-body'>
       <div className='confirm-heading'>Confirm Your Information</div>
       
       {/* Personal Info Section */}
@@ -75,6 +74,7 @@ const ConfirmationPage = ({ onNextStep }) => {
         </div>
       </div>
 
+</div>
       <div className='footer'>
         <SingleLine />
         <div className='actions'>

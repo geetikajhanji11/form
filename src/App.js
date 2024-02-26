@@ -9,7 +9,7 @@ import FormSubmittedPage from './components/FormSubmittedPage';
 import NavBar from './components/NavBar';
 import ProgressBar from './components/ProgressBar';
 import SingleLine from './components/SingleLine';
-
+import LandingBanner from './components/LandingBanner';
 import "./App.css"
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
         <Fragment>
           
 
-          <h1>UPPER LANDING PAGE</h1>
+          <LandingBanner />
 
           <div className='main-form-container'>
             <NavBar />
@@ -44,7 +44,6 @@ function App() {
             </div>
           </div>
 
-          <h1>LOWER LANDING PAGE</h1>
 
 
         </Fragment>

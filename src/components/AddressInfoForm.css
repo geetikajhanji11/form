@@ -1,4 +1,10 @@
-
+.address-info-page {
+    display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* This will push the footer down */
+        padding-bottom: 20px; /* Optional: Adjust based on your design */
+        flex: 1;
+}
 
 
 .form_address {
@@ -28,7 +34,11 @@
     margin-top: 5px;
 }
 
-
+.form-upper-body {
+    padding: 20px 0;
+    padding-left: 3%;
+    padding-right: 3%;
+}
 
 .footer {
     /* position: fixed;

@@ -46,3 +46,12 @@
 .address-details-section, .personal-info-section {
   margin-top: 45px;
 }
+
+
+.confirmation-page {
+  display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* This will push the footer down */
+        padding-bottom: 20px; /* Optional: Adjust based on your design */
+        flex: 1;
+}
